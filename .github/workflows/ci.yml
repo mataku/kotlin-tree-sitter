@@ -45,11 +45,10 @@ jobs:
             gradle/libs.versions.toml
             gradle/wrapper/gradle-wrapper.properties
             ktreesitter/gradle.lockfile
-      - name: Cache Kotlin/Native dependencies
-        uses: actions/cache@v5
+      - name: Set up Kotlin/Native
+        uses: mataku/setup-konan-action@fix/cache-symlinks-and-windows-lldb
         with:
-          path: ~/.konan
-          key: konan-${{ runner.os }}-${{ runner.arch }}-2.2.10
+          kotlin_version: 2.2.10
       - name: Generate files
         run: ./gradlew --no-daemon generateGrammarFiles
       - name: Upload artifact
@@ -114,11 +113,10 @@ jobs:
           cache-dependency-path: |
             gradle/libs.versions.toml
             gradle/wrapper/gradle-wrapper.properties
-      - name: Cache Kotlin/Native dependencies
-        uses: actions/cache@v5
+      - name: Set up Kotlin/Native
+        uses: mataku/setup-konan-action@fix/cache-symlinks-and-windows-lldb
         with:
-          path: ~/.konan
-          key: konan-${{ runner.os }}-${{ runner.arch }}-2.2.10
+          kotlin_version: 2.2.10
       - name: Set up cross compilation
         if: matrix.platform == 'Linux'
         run: |-
